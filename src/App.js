@@ -1,7 +1,7 @@
-import { useState } from "react";
-import "./App.css";
-import AnswerChoice from "./Components/AnswerChoice/AnswerChoice";
-import Title from "./Components/Title/Title";
+import { useState } from 'react';
+import './App.css';
+import AnswerChoice, { sum } from './Components/AnswerChoice/AnswerChoice';
+import Title from './Components/Title/Title';
 
 function App() {
   const [activatedLetter, setActivatedLetter] = useState();
@@ -10,20 +10,20 @@ function App() {
 
   const question0 = {
     title: "Who Wrote 'Yellow'?",
-    A: "BrockHampton",
-    B: "Coldplay",
-    C: "Mana",
-    D: "Bad Bunny",
-    correctAnswer: "B",
+    A: 'BrockHampton',
+    B: 'Coldplay',
+    C: 'Mana',
+    D: 'Bad Bunny',
+    correctAnswer: 'B',
   };
 
   const question1 = {
-    title: "How old was Eddie Santiago when he wrote Lluvia?",
-    A: "33",
-    B: "29",
-    C: "45",
-    D: "26",
-    correctAnswer: "A",
+    title: 'How old was Eddie Santiago when he wrote Lluvia?',
+    A: '33',
+    B: '29',
+    C: '45',
+    D: '26',
+    correctAnswer: 'A',
   };
 
   const bank = [question0, question1];
@@ -34,13 +34,16 @@ function App() {
 
   // To increase question number and render a different question
   const setQuestionHandler = () => {
-    setQuestionNumber((prevQuestion) => prevQuestion + 1);
+    if (questionNumber == bank.length - 1) {
+      console.log('END OF QUIZ');
+    }
+    setQuestionNumber((x) => x + 1);
   };
 
   const isWrongValidator = () => {
     setLetterWrong(activatedLetter);
     setActivatedLetter(question0.correctAnswer);
-    return console.log("iswrong");
+    return console.log('iswrong');
   };
 
   return (
@@ -48,26 +51,26 @@ function App() {
       <div className='quiz-container'>
         <Title content={bank[questionNumber].title}></Title>
         <AnswerChoice
-          active={"A" === activatedLetter}
-          isWrong={"A" == letterWrong}
+          active={'A' === activatedLetter}
+          isWrong={'A' == letterWrong}
           content={bank[questionNumber].A}
           callback={setActiveChoiceHandler}
           letter='A'></AnswerChoice>
         <AnswerChoice
-          active={"B" === activatedLetter}
-          isWrong={"B" == letterWrong}
+          active={'B' === activatedLetter}
+          isWrong={'B' == letterWrong}
           content={bank[questionNumber].B}
           callback={setActiveChoiceHandler}
           letter='B'></AnswerChoice>
         <AnswerChoice
-          active={"C" === activatedLetter}
+          active={'C' === activatedLetter}
           content={bank[questionNumber].C}
-          isWrong={"C" == letterWrong}
+          isWrong={'C' == letterWrong}
           callback={setActiveChoiceHandler}
           letter='C'></AnswerChoice>
         <AnswerChoice
-          active={"D" === activatedLetter}
-          isWrong={"D" == letterWrong}
+          active={'D' === activatedLetter}
+          isWrong={'D' == letterWrong}
           content={bank[questionNumber].D}
           callback={setActiveChoiceHandler}
           letter='D'></AnswerChoice>
